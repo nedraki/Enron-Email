@@ -1,4 +1,4 @@
-# Exploration of Enron-Emails dataset:
+# Exploration of Enron-Emails dataset
 
 *Natural Language Proccessing for email tex
 
