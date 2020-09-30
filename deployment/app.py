@@ -9,6 +9,7 @@ from plots import read_csv, time_workload, bar_plot_interactive
 from plots_emails import bar_plots_emails, bar_plots_emails_historical
 from network_visuals import show_network
 from sentiments import i_got_a_feeling, give_emoji_sentiment, give_emoji_subjectivity
+from Network_analytics import graph_nx_class, make_graph_nx, make_graph_nx_weight, make_subgraph_nx
 
 ### Sidebar selection options:
 
@@ -18,7 +19,7 @@ st.sidebar.markdown("Select the Charts/Plots accordingly:")
 
 select = st.sidebar.selectbox('Year of interest', ['Historical','2000','2001', '2002'], key='1')
 # select_unit = st.sidebar.selectbox('Business Unit', ['HR','Management', 'Online Trading'], key='1')
-select_network = st.sidebar.selectbox('Networks', ['2000','2001', '2002'], key='1')
+select_network = st.sidebar.selectbox('Networks', ['Full Network','Subset Network'], key='1')
 select_unit_feel = st.sidebar.selectbox('Feelings', ['HR','Management', 'Online Trading'], key='1')
 
 
@@ -35,6 +36,8 @@ st.write('Hello Team')
 
 file_path = 'data/enron_subset_10kemails.csv'
 dataset = read_csv(file_path)
+
+dataset_networks = pd.read_csv('data/Network_analytics.csv')
 
 
 
@@ -65,12 +68,25 @@ elif select == '2002':
 
 #### Network analytics visual representation:
 
-if select_network == '2000':
+if select_network == 'Full Network':
+
+	G, pos_ = graph_nx_class(dataset_networks)
+	st.subheader('Network of employees in Enron')
+	st.write(make_graph_nx(G,pos_,'color'))
+
+	st.subheader(" The 'Bubbles' are indicators of employees with more connections")
+	st.write(make_graph_nx(G,pos_, 'size'))
+
+elif select_network == 'Subset Network':
 	st.sidebar.text('Working on code')
-elif select_network == '2001':
-	st.write(show_network())
-elif select_network == 'Online Trading':
-	st.sidebar.text('Working on code')
+
+	G, pos_ = graph_nx_class(dataset_networks)
+	poi = 0 #### IDEALMENTE EL USUARIO ELIGE POI
+	st.subheader('Subgraph with highest number of connections:')
+	st.write(make_subgraph_nx(G, poi))
+
+
+
 
 
 #### Sentiment analysis:
