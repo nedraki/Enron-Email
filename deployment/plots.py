@@ -1,6 +1,8 @@
 import pandas as pd
+import numpy as np
 import plotly.graph_objects as go
 import plotly.express as px
+import os
 
 
 def read_csv(file_path):
@@ -61,5 +63,33 @@ def bar_plot_interactive(dataset, y, title, format=None):
         fig.update_layout(yaxis_tickformat = '%')
 
     return fig
+
 ###########################################
+
+def plot_hiring(year_of_interest):
+
+    filepath = 'data/Enron_by_year.csv' # 3K emails
+    df = pd.read_csv(filepath)
+
+    #Converting the Date column into datetime type
+    
+    df["Date"] = pd.to_datetime(df["Date"])
+
+    #Select year: 
+
+    df = df.loc[df['year'] == year_of_interest]
+
+    scatter = px.scatter(df.groupby(["employee"])["Date"].min().sort_values())
+
+    ### Layout for figure:
+
+    scatter.update_layout(
+        title="First mail sent",
+        xaxis_title="Employee",
+        yaxis_title="Date",
+        legend_title="Legend",
+        xaxis =  {'showgrid': False},
+        yaxis = {'showgrid': True})
+
+    return scatter
 

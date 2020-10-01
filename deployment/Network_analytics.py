@@ -10,7 +10,11 @@ def graph_nx_class(dataset):
     
     ## Creating a Graph class
 
+    print(dataset.info)
+
     G = nx.Graph()
+
+    print(type(G))
 
     ### Assigning nodes and edges:
 

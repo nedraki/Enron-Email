@@ -5,7 +5,7 @@ import streamlit as st
 #Plots:
 import plotly.graph_objects as go
 import plotly.express as px
-from plots import read_csv, time_workload, bar_plot_interactive
+from plots import read_csv, time_workload, bar_plot_interactive, plot_hiring
 from plots_emails import bar_plots_emails, bar_plots_emails_historical
 from network_visuals import show_network
 from sentiments import i_got_a_feeling, give_emoji_sentiment, give_emoji_subjectivity
@@ -17,7 +17,7 @@ st.sidebar.title("Visualization Selector")
 st.sidebar.markdown("Select the Charts/Plots accordingly:")
 
 
-select = st.sidebar.selectbox('Year of interest', ['Historical','2000','2001', '2002'], key='1')
+select = st.sidebar.selectbox('Email traffic', ['Historical','2000','2001', '2002'], key='1')
 # select_unit = st.sidebar.selectbox('Business Unit', ['HR','Management', 'Online Trading'], key='1')
 select_network = st.sidebar.selectbox('Networks', ['Full Network','Subset Network'], key='1')
 select_unit_feel = st.sidebar.selectbox('Feelings', ['HR','Management', 'Online Trading'], key='1')
@@ -37,8 +37,7 @@ st.write('Hello Team')
 file_path = 'data/enron_subset_10kemails.csv'
 dataset = read_csv(file_path)
 
-dataset_networks = pd.read_csv('data/Network_analytics.csv')
-
+dataset_networks = pd.read_csv('data/Network_analytics_processed.csv')
 
 
 ###########################################
@@ -51,10 +50,13 @@ if select == 'Historical':
 	bar_plots_emails_historical(dataset)
 elif select == '2000':
 	bar_plots_emails(dataset, 2000)
+	st.write(plot_hiring(2000))
 elif select == '2001':
 	bar_plots_emails(dataset, 2001)
+	st.write(plot_hiring(2001))
 elif select == '2002':
 	bar_plots_emails(dataset, 2002)
+	st.write(plot_hiring(2002))
 
 
 # # Business unit visual representation:
