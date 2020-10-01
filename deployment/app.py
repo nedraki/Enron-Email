@@ -3,6 +3,7 @@ import numpy as np
 import streamlit as st
 
 #Plots:
+import matplotlib.pyplot as plt
 import plotly.graph_objects as go
 import plotly.express as px
 from plots import read_csv, time_workload, bar_plot_interactive, plot_hiring
@@ -10,6 +11,8 @@ from plots_emails import bar_plots_emails, bar_plots_emails_historical
 from network_visuals import show_network
 from sentiments import i_got_a_feeling, give_emoji_sentiment, give_emoji_subjectivity
 from Network_analytics import graph_nx_class, make_graph_nx, make_graph_nx_weight, make_subgraph_nx
+from sentiment_scores import WC
+from PIL import Image, ImageOps
 
 ### Sidebar selection options:
 
@@ -18,14 +21,11 @@ st.sidebar.markdown("Select the Charts/Plots accordingly:")
 
 
 select = st.sidebar.selectbox('Email traffic', ['Historical','2000','2001', '2002'], key='1')
-# select_unit = st.sidebar.selectbox('Business Unit', ['HR','Management', 'Online Trading'], key='1')
 select_network = st.sidebar.selectbox('Networks', ['Full Network','Subset Network'], key='1')
-select_unit_feel = st.sidebar.selectbox('Feelings', ['HR','Management', 'Online Trading'], key='1')
+select_unit_feel = st.sidebar.selectbox('Feelings', ['HR','Management', 'Federal legislation'], key='1')
+select_unit = st.sidebar.selectbox('Business Unit', ['HR','Management', 'Online Trading'], key='1')
 
 
-#### Functions for interactive plots:
-
-#########################################################
 
 
 #### Graphs:
@@ -59,14 +59,14 @@ elif select == '2002':
 	st.write(plot_hiring(2002))
 
 
-# # Business unit visual representation:
+# Business unit visual representation:
 
-# if select_unit == 'HR':
-# 	st.sidebar.text("Working on code")
-# elif select_unit == 'Management':
-# 	st.sidebar.text('Working on code')
-# elif select_unit == 'Online Trading':
-# 	st.sidebar.text('Working on code')
+if select_unit == 'HR':
+	fig = st.write(WC('hr'))
+elif select_unit == 'Management':
+	fig = st.write(WC('management'))
+elif select_unit == 'Online Trading':
+	fig = st.write(WC('online trading'))
 
 #### Network analytics visual representation:
 
@@ -89,21 +89,54 @@ elif select_network == 'Subset Network':
 
 
 
-
-
 #### Sentiment analysis:
 
 if select_unit_feel == 'HR':
+	
 	st.subheader('HR Department')
-	sent, subjec = i_got_a_feeling('hr')
+	
+	folder = 'hr'
+	sent, subjec = i_got_a_feeling(folder)
+
+	image = Image.open(f'data/{folder}/topemotion_{folder}.jpg')
+	st.image(image, width=720)
+
+	image = Image.open(f'data/{folder}/houremotion_{folder}.jpg')
+	st.image(image, width=720)
+
+	image = Image.open(f'data/{folder}/workemotion_{folder}.jpg')
+	st.image(image, width=720)
+
 elif select_unit_feel == 'Management':
 	st.subheader('Management')
-	sent, subjec = i_got_a_feeling('management')
-elif select_unit_feel == 'Online Trading':
-	st.subheader('Traders')
-	sent, subjec = i_got_a_feeling('online trading')
+
+	folder = 'management'
+	sent, subjec = i_got_a_feeling(folder)
+
+	image = Image.open(f'data/{folder}/topemotion_{folder}.jpg')
+	st.image(image, width=720)
+
+	image = Image.open(f'data/{folder}/houremotion_{folder}.jpg')
+	st.image(image, width=720)
+
+	image = Image.open(f'data/{folder}/workemotion_{folder}.jpg')
+	st.image(image, width=720)
 
 
+elif select_unit_feel == 'Federal legislation':
+	st.subheader('Federal legislation')
+
+	folder = 'federal legislation'
+	sent, subjec = i_got_a_feeling(folder)
+
+	image = Image.open(f'data/{folder}/topemotion_{folder}.jpg')
+	st.image(image, width=720)
+
+	image = Image.open(f'data/{folder}/houremotion_{folder}.jpg')
+	st.image(image, width=720)
+
+	image = Image.open(f'data/{folder}/workemotion_{folder}.jpg')
+	st.image(image, width=720)
 
 #### Necesary further: ###################
 
