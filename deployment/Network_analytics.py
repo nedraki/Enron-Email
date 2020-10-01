@@ -101,7 +101,7 @@ def make_graph_nx(G,pos_,mode):
     for node, adjacencies in enumerate(G.adjacency()):
 
         node_adjacencies.append(len(adjacencies[1]))
-        node_text.append('#Employee: '+str(adjacencies[0]))
+        node_text.append(': '+str(adjacencies[0]))
 
 #     node_trace.marker.size = node_adjacencies    
 #     node_trace.text = node_text
@@ -120,13 +120,13 @@ def make_graph_nx(G,pos_,mode):
 
     fig = go.Figure(data=[edge_trace, node_trace],
          layout=go.Layout(
-            title='<br>Testing Network graph made with Python',
+            title='<br> ',
             titlefont_size=16,
             showlegend=False,
             hovermode='closest',
             margin=dict(b=20,l=5,r=5,t=40),
             annotations=[ dict(
-                text="1,2,3 Testing",
+                text=" ",
                 showarrow=False,
                 xref="paper", yref="paper",
                 x=0.005, y=-0.002 ) ],
