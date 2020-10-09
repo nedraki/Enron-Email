@@ -201,12 +201,15 @@ if 'Sentiments' in feature_selector:
 		folder = 'hr'
 		sent, subjec = i_got_a_feeling(folder)
 
+		st.subheader("Employee's emotions")
 		image = Image.open(f'data/{folder}/topemotion_{folder}.jpg')
 		st.image(image, width=720)
 		st.markdown("---")
+		st.subheader("Working hours in unit")
 		image = Image.open(f'data/{folder}/houremotion_{folder}.jpg')
 		st.image(image, width=720)
 		st.markdown("---")
+		st.subheader("Is it people overworking?")
 		image = Image.open(f'data/{folder}/workemotion_{folder}.jpg')
 		st.image(image, width=720)
 		st.markdown("---")

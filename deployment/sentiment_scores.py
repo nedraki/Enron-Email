@@ -47,23 +47,16 @@ def WC(Folder, stpwords = None):
         
     return fig
 
+    def show_me_sentiments():
 
-def plot_emotions(Folder,plot):
+        for path in pathlib.Path("a_directory").iterdir():
+            if path.is_file():
+                current_file = open(path, "r")
+                print(current_file.read())
+                current_file.close()
 
-    filepath = "data/Enron_by_departments.csv"
-    # Read the data into a pandas dataframe called emails
-    df = pd.read_csv(filepath)
-    
-    data = df.loc[df['X-Folder'] == Folder]
+    return
 
-    if plot == 'top':
-        fig = data.groupby('year').topemotion.value_counts(normalize = True).unstack(0).plot.bar()
-    elif plot == 'hour':
-        fig = data.groupby('year').time_hour.value_counts(normalize = True).unstack(0).plot.bar()
-    elif plot == 'work':
-        fig = data.groupby('year').Work.value_counts(normalize = True).unstack(0).plot.bar()
-    
-    return fig.plot()
 
 
     
