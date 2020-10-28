@@ -2,21 +2,28 @@
 
 https://enrondetective.herokuapp.com/
 
-![](https://github.com/nedraki/Enron-Email/blob/master/visuals/webapp.gif)
+### Objective:
+
+Data exploration to find describing insights of the company and the iteration among its employees.
 
 ### Objective:
 
 Data exploration to find describing insights of the company and the iteration among its employees.
+
+![](https://github.com/nedraki/Enron-Email/blob/master/visuals/webapp.gif)
 
 ### Techniques used to explore data:
 
 - Natural Language Processing
 
 Applied for data cleaning as well as tokenization to extract main content.
+![network](visuals/wordcloud.png)
 
-- Pre-processing in pandas
+-  Work in Pandas
 
 Helpful to find first insights and stats from the data. For example, looking at the email traffic was possible to identify working hours, holidays and hiring seasons.
+![network](visuals/email_traffic.png)
+
 
 - Sentiment Analysis
 
@@ -25,6 +32,8 @@ Specific departments among the conversations were selected in order to evaluate 
 - Network-analysis
 
 To visualy find the iterations between employees and identify "islands of information", botleneck in comunication and most relevant actors in the company.
+
+![network](visuals/network.png)
 
 ### About the data 
 
